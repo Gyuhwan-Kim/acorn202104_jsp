@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Step05_AnimateCss.html</title>
+<!-- 외부 css 로딩하기 -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+<style>
+	/*
+		로딩된 css에는 애니메이션의 이름에 해당하는 keyframe이 모두 정의되어 있어서
+		원하는 keyframe을 우리가 원하는대로 적용시킬수도 있다.
+	*/
+	/*
+	#one{
+		animation-name: bounce;
+		animation-duration: 1s;
+		animation-timing-function: ease-out;
+		animation-iteration-count: 1;
+	}
+	*/
+	#one{
+		animation: bounce 1s ease-out 1;
+	}
+</style>
+</head>
+<body>
+	<h1 class="animate__animated animate__bounce">Animate Css test</h1>
+	<h1 id="one">내가 직접 keyframe 적용시키기</h1>
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa cum expedita sed perspiciatis dolore laudantium saepe quaerat cupiditate nemo ipsa et facere excepturi nobis explicabo optio asperiores earum sapiente id.</p>
+	<button id="myBtn" class="animate__animated">마우스를 올려보셈</button>
+
+	<script>
+		// 버튼에 마우스를 올렸을 때
+		document.querySelector("#myBtn").addEventListener("mouseover", function(){
+			// class를 추가해서 애니메이션을 동작시키고
+			this.classList.add("animate__swing");
+		});
+		// 버튼에 적용된 애니메이션이 끝났을 때
+		document.querySelector("#myBtn").addEventListener("animationend", function(){
+			// class를 제거해서
+			// 다음번에 또 class가 추가될 때, 애니메이션이 동작되도록 한다.
+			this.classList.remove("animate__swing");
+		});
+	</script>
+</body>
+</html>

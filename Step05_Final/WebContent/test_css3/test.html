@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<style>
+		.wrapper{
+		   perspective: 500px;
+		   perspective-origin: 50% 50%;
+		   
+		   border: 1px solid red;
+		}
+		.cube{
+		   transform-style: preserve-3d;
+		   transform-origin: 50% 50%;
+		   position: relative;
+		   width: 400px;
+		   height: 400px;
+		   margin: 0 auto; /* 가운데 정렬 */
+		   transition: all 0.5s ease-out;
+		}
+		.cube > div{
+		   position: absolute;
+		   width: 400px;
+		   height: 400px;
+		   opacity: 0.6; /* 투명도 */
+		   background-color: #2e272f;
+		}
+		.cube img{
+		   width: 400px;
+		   height: 400px;
+		}
+		
+		.control{
+		   /* 인라인 요소의 가운데 정렬 */
+		   text-align: center;
+		}
+		#box{
+		
+		}       
+	</style>
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />	
+</head>
+<body>
+    <h1>이번 주의 로또 번호를 알려드리겠습니다 !.! </h1>
+	<div class="wrapper">
+		<div class="cube">
+
+		</div>
+	</div>
+	<div class="control">
+		<button id="prevBtn">&larr;</button>
+		<button id="nextBtn">&rarr;</button>
+	</div>
+	<div id="box">
+	</div>
+    <br>
+    <button id="Btn">두 번 클릭!</button>
+    <button id="Bonus">보너스~</button>
+    <script>
+        let list =[];
+		
+        document.querySelector("#Btn").addEventListener("click", function(){
+            div = document.querySelector(".cube")
+            ball = document.querySelectorAll(".ball")
+            if(ball.length>=6){
+                return;
+            }  else {
+            for(let i=0; i<20; i++){
+                let ranNum = Math.floor(Math.random()*45);
+                let ran = ranNum+1;
+                list.push(ran);
+                for(let j=0; j<i; j++){
+                    if(i!=j && list[i]==list[j]){
+                        list.splice(i,1)
+                    } else if(list.length==6){
+                        return;
+                    }
+                }
+                if(list.length==6){
+                    return;
+                }
+               
+            }
+            for(let i=0; i<6; i++){
+                    let ran2=list[i]+1;
+                    let div2 = document.createElement("div");
+                    let img = document.createElement("img");
+                    let path = "../images/lotto-ball-" + ran2 + ".png"
+                    img.setAttribute("src", path);
+                    img.setAttribute("class", "ball");
+                    //img.setAttribute("height", "100");
+                    //img.setAttribute("width", "100");
+                    div2.append(img);
+                    div.append(div2); 
+            }
+         	//let cubelist=document.querySelectorAll(".img");
+    		let cube=document.querySelector(".cube");
+    		let cubelist=cube.children;
+    		//let cubelist=document.querySelectorAll(".cube > div");
+    		
+    		let obj=getAngleNtz(cubelist.length,400);
+    		
+    		for(let i=0; i<cubelist.length; i++){
+    			cubelist[i].style.transform=`rotateY(${obj.angle*i}deg) translateZ(${obj.tz}px)`;
+    		}
+    		cube.style.transform=`translateZ(-${obj.tz}px)`;
+            
+    		let angle=0;
+    		document.querySelector("#prevBtn").addEventListener("click", function(){
+    			angle -= obj.angle;
+    			cube.style.transform=`translateZ(${-obj.tz}px) rotateY(${angle}deg)`;
+    		});
+    		document.querySelector("#nextBtn").addEventListener("click", function(){
+    			angle += obj.angle;
+    			cube.style.transform=`translateZ(${-obj.tz}px) rotateY(${angle}deg)`;
+    		});
+            }
+            /*    
+                let img = document.createElement("img");
+                let path = "c:/acorn202104/visual_work/html/images/lotto-ball-" + ran + ".png"
+                img.setAttribute("src", path)
+                img.setAttribute("height", "100");
+                img.setAttribute("width", "100");
+                div.append(img);
+            */
+        });
+        document.querySelector("#Bonus").addEventListener("click", function(){
+            div = document.querySelector("#box")
+            ball = document.querySelectorAll(".ball")
+            if(ball.length>=7){
+                return;
+            }
+            for(let i=0; i<6; i++){
+                let ranNum = Math.floor(Math.random()*45);
+                let ran = ranNum+1;
+                if(list[i] != ran){
+                    let img = document.createElement("img");
+                    let path = "../images/lotto-ball-" + ran + ".png"
+                    img.setAttribute("src", path);
+                    img.setAttribute("class", "ball animate__animated animate__backInDown");
+                    div.append(img);
+                    return;
+                }
+            }
+        });
+        
+		function getAngleNtz(n, width) {
+			var angle = (360 / n);
+			var tz = ((width / 2) / Math.tan((angle * Math.PI) / (2 * 180)));
+			var obj = {
+				angle: angle,
+				tz: tz
+			};
+			return obj;
+		}
+	
+    </script>
+</body>
+</html>

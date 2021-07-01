@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Step02_Transition2.html</title>
+<style>
+	.box{
+		width: 100px;
+		height: 100px;
+		background-color: #0f0;
+		border: 1px solid red;
+	}
+	
+	#one{
+		transition: margin-left 5s linear;
+	}
+	#two{
+		 transition: margin-left 5s ease-in;
+	}
+	#three{
+		transition: margin-left 5s ease-out;
+	}
+	#four{
+		transition: margin-left 5s ease-in-out;
+	}
+
+
+</style>
+</head>
+<body>
+	<div class="box" id="one"></div>
+	<div class="box" id="two"></div>
+	<div class="box" id="three"></div>
+	<div class="box" id="four"></div>
+	<button id="startBtn">출발</button>
+	<script>
+		/*
+			출발 버튼을 눌렀을 때 4개의 .box div의 왼쪽 margin을 700px로 지정하고
+			움직임을 관찰해서 transition-timing-function 값을 비교하세요
+		*/
+		document.querySelector("#startBtn").addEventListener("click", function(){
+			// class 명이 box인 모든 div 참조값을 array에 담아오기
+			const divs=document.querySelectorAll(".box");
+			for(let i=0; i<divs.length; i++){
+				// i 번째 div의 margin-left를 700px로 지정하기
+				divs[i].style.marginLeft="700px";
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Step05_Animation</title>
+<style>
+	.box{
+		width: 100px;
+		height: 100px;
+		background-color: #0f0;
+		border: 1px solid red;
+		/* transform 원점 설정 */
+		transform-origin: 50% 50%;
+	}
+	
+	/* myAni 라는 이름의 keyframe 정의하기 */
+	@keyframes myAni{
+		/* keyframe의 초기상태 css*/
+		0%{
+			background-color: #ff0;
+			transform: rotate(0deg) scale(1.0);
+		}
+		
+		50%{
+			background-color: #f0f;
+			transform:rotate(180deg) scale(0.5);
+		}
+		
+		/* keyframe이 모두 진행되었을 때 css*/
+		100%{
+			background-color: #ff0;
+			transform: rotate(360deg) scale(1.5);
+		}
+	}
+	
+	.box:hover{
+		animation-name: myAni;
+		animation-duration: 3s;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+		animation-direction: alternate;
+	}
+	
+	@keyframes dropAni{
+		0%{
+			transform: translateY(-186px);
+		}
+		
+		100%{
+			transform: translateY(0px);
+		}
+	}
+	
+	#one{
+		animation-name: dropAni;
+		animation-duration: 0.5s;
+		animation-timing-function: ease-out;
+		animation-iteration-count: 1;
+	}
+</style>
+</head>
+<body>
+	<h1>animation keyframe test</h1>
+	<div class="box"></div>
+	<h1 id="one">위에서 떨어지는 제목</h1>
+</body>
+</html>
